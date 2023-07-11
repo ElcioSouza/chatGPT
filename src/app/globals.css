@@ -25,3 +25,21 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+/*  tamanho geral */
+::-webkit-scrollbar {
+     width: .5rem;
+     height: 1rem;
+}
+/* barra de rolagem */
+::-webkit-scrollbar-thumb {
+  background-color: rgba(217,217,217, .8);
+  border-radius: 1rem;
+  -webkit-border-radius: 1rem;
+  -moz-border-radius: 1rem;
+  -ms-border-radius: 1rem;
+  -o-border-radius: 1rem;
+}
+/* fundo aonde barra de rolagem vai passar */
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

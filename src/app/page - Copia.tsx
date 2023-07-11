@@ -37,27 +37,25 @@ React.useEffect(() => {
 
 // fazer minha requição da minha api 
 
-const getAlResponse = async () => {
-    // Criei uma lista nova um clone
-    let chatListClone = [...chatList];
-    // busca chat que esta ativo
-    let chatIndex = chatListClone.findIndex(item => item.id === chatActiveId);
-    // se esta ativo o chat
-    if(chatIndex > -1) {
-        // pegar as mensagem e traduzir ela para manda elas meu generation
-        const translated = openai.translateMessages(chatListClone[chatIndex].messages);      
-        const response = await openai.generate(translated);
-       
-        if(response) {
-          chatListClone[chatIndex].messages.push({
-            id: uuidv4(),
-            author: 'ai',
-            body: response
-          });
-        } 
-    }
-    setChatList(chatListClone);
-    SetAlLoading(false);
+/* simular a api*/
+const getAlResponse = () => {
+
+  setTimeout(() => {
+      // Criei uma lista nova um clone
+      let chatListClone = [...chatList];
+      // busca chat que esta ativo
+      let chatIndex = chatListClone.findIndex(item => item.id === chatActiveId);
+      if(chatIndex > -1) {
+        chatListClone[chatIndex].messages.push({
+          id: uuidv4(),
+          author: 'ai',
+          body: 'Aqui vai a resposta da AI :)'
+        });
+      }
+      setChatList(chatListClone);
+      SetAlLoading(false);
+    }, 2000)
+
 }
 
 const openSidebar = () => setSidebarOpened(true);
@@ -194,7 +192,7 @@ const handleNewChat = () => {
           />
           {/* exibir conversa atual ou então não tem nenhuma conversa selecionada vai aparecer placeholder  */}
           <ChatArea chat={chatActive} loading={AlLoading}/>
-         {/*  <button onClick={handleTestOpenAI}>Testar openAI</button> */}
+          <button onClick={handleTestOpenAI}>Testar openAI</button>
           <Footer 
           sendMessage={handleSendMessage}
           disabled={AlLoading}
