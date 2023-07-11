@@ -14,7 +14,7 @@ export default function ChatArea({chat,loading}: Props) {
 
   React.useEffect(() => {
     scrollArea.current?.scrollTo(0, scrollArea.current?.scrollHeight) // scrollArea.current?.scrollHeigh-> altura do conteudo completo dessa area
-   }, [loading, chat?.messages,length])
+   }, [loading, chat?.messages.length])
    
 
 
