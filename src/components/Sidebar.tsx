@@ -20,16 +20,20 @@ export const SideBar = ({ open, close, clear, newChat, children }: Props) => {
         <div className={`transition-all trasiton-200 flex h-screen 
             ${open ? 'ml-0': '-ml-96'} md:ml-0`}>
                 <div className="flex flex-col w-64 p-2 bg-gray-900">
-                    
+                   
+                    {/* Botão da nova conversa */}
                     <div  onClick={newChat} className="flex items-center p-3 rounded-md text-sm cursor-pointer 
                     border border-white/20 hover:bg-gray-500/20">
                         <IconAdd width={16} height={16} className="mr-3" />
                         Nova Conversa
                     </div>
-                
+
+                     {/* corpo sidebar */}
                     <div className="flex-1 pt-2 overflow-y-auto">
                         {children}
                     </div>
+
+                    {/* botão do limpar conversa */}
 
                     <div className="border-t border-gray-700 pt-2">
                         <SidebarButton
@@ -39,7 +43,7 @@ export const SideBar = ({ open, close, clear, newChat, children }: Props) => {
                         />
                     </div>
                 </div>
-
+                      {/* icone do x */}
                     <div 
                     onClick={close} 
                     className="flex justify-center items-center cursor-pointer w-10 h-10 md:hidden"

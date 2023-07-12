@@ -111,9 +111,9 @@ const handleSendMessage = (message: string) => {
 
 // sempre usuario clicar novo chat, vai desabilita chat ativo
 const handleNewChat = () => {
-       // quando minha AlLoading estiver carregando minha resposta não pode criar chat novo, dei um return
+       // quando minha AlLoading estiver carregando minha resposta não pode criar chat novo
        if(AlLoading) return;
-            //vai desabilita chat ativo
+      //vai desabilita chat ativo
        setChatActiveId(''); 
        closeSidebar();
   }
@@ -167,6 +167,7 @@ const handleNewChat = () => {
 
   return (
     <main className="flex min-h-screen bg-gpt-gray">
+           {/* menu */}
           <SideBar
             open={sidebarOpened}
             close={closeSidebar}
@@ -186,7 +187,7 @@ const handleNewChat = () => {
             ))}
           </SideBar>
           <section className="flex flex-col w-full">
-          {/*   <button onClick={() => setSidebarOpened(true)}>Abrir SideBar</button> */}
+            
           <Header 
             openSidebarClick={openSidebar}
             title={chatActive ? chatActive.title : 'ChatGPT'}

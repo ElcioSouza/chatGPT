@@ -45,7 +45,8 @@ export default function ChatMessageInput({disabled, sendMessage}: Props) {
         onChange={e => setText(e.target.value)} 
         onKeyUp={handleTextKeyUp}
         disabled={disabled}></textarea>
-
+        
+        {/* icone de envio */}
         <div onClick={handleSendMessage} className={`self-end p-1 cursor-pointer rounded
         ${text.length ? 'opacity-100 hover:bg-black/20': 'opacity-20'}`}>
             <IconSend width={14}  height={14}/>

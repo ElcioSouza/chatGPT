@@ -15,12 +15,12 @@ export default function ChatArea({chat,loading}: Props) {
   React.useEffect(() => {
     scrollArea.current?.scrollTo(0, scrollArea.current?.scrollHeight) // scrollArea.current?.scrollHeigh-> altura do conteudo completo dessa area
    }, [loading, chat?.messages.length])
-   
-
 
   return (
     <section ref={scrollArea} className="flex-auto h-0 overflow-y-auto">
+         {/* se nao escreveu nenhuma mensagem, layout do inicio vai sair e vai ficar definido vai vim conversa do ai */}       
         {!chat &&   <ChatPlaceholder />}
+        {/* icone e a mensagem */}
         {chat && chat.messages.map((item,index) => (
             <ChatMessageItem 
                 key={index}

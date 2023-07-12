@@ -39,6 +39,7 @@ interface Props {
 
 export default function SidebarButton({label, onClick, icon}:Props) {
   return (
+    /* Botão de limpar todas as conversa */
     <div onClick={onClick} className="flex items-center rounded-md p-3 text-sm cursor-pointer
     hover:bg-gray-500/20">
         <div className="mr-3">{icon}</div>

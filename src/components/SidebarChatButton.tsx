@@ -50,6 +50,7 @@ export default function SidebarChatButton({ chatItem, active, click, del, edit }
   return (
     <div onClick={handleClickButton} className={`flex items-center rounded-md p-3 text-sm cursor-pointer
     hover:bg-gray-500/10 ${active ? 'bg-gray-500/20' : 'bg-transparent'}`}>
+      {/* aqui é sidebar o retangulo vai aparecer oque escreveu o usuario e os icones */}
             {/* icones */}
            <div className="mr-3">
               {!deleting && <IconChatLeft width={16} height={16} />}
