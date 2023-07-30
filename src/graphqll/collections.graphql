@@ -1,0 +1,30 @@
+query Collections {
+  collections {
+    items {
+      id
+      name
+      slug
+      featuredAsset {
+        id
+        width
+        height
+        source
+      }
+    }
+  }
+}
+
+query Facets($options: FacetListOptions) {
+  facets(options: $options) {
+    items {
+      id
+      name
+      code
+      values {
+        id
+        name
+        code
+      }
+    }
+  }
+}

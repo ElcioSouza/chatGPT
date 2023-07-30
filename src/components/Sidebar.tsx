@@ -3,16 +3,17 @@ import IconClose from './icons/iconclose';
 import IconAdd from './icons/iconadd';
 import SidebarButton from './SidebarButton';
 import IconTrash from './icons/icontrash';
-
+import IconLogout from "./icons/iconlogout";
 type Props = {
     children: ReactNode;
     open: boolean;
     close: () => void;
     clear: () => void;
+    signOut: () => void;
     newChat: () => void;
 }
 
-export const SideBar = ({ open, close, clear, newChat, children }: Props) => {
+export const SideBar = ({ open, close, clear, signOut, newChat, children }: Props) => {
     /* https://reactsvgicons.com/search?q=close */
   return (
     <section className={`fixed left-0 top-0 bottom-0 text-white 
@@ -40,6 +41,13 @@ export const SideBar = ({ open, close, clear, newChat, children }: Props) => {
                             icon={<IconTrash />}
                             label="Limpar todas as conversas"
                             onClick={clear}
+                        />
+                    </div>
+                    <div className="border-t border-gray-700 pt-2">
+                        <SidebarButton
+                            icon={<IconLogout />}
+                            label="Sair"
+                            onClick={signOut}
                         />
                     </div>
                 </div>

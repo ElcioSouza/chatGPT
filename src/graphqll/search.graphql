@@ -1,0 +1,15 @@
+query Search($input: SearchCustomInput!) {
+  searchCustom(input: $input) {
+    items {
+      productName
+      productId
+      description
+      productVariantName
+      slug
+      price
+      priceWithTax
+      productPreview
+    }
+    totalItems
+  }
+}

@@ -1,0 +1,173 @@
+query activeCustomer {
+  activeCustomer {
+    id
+    firstName
+    lastName
+    phoneNumber
+    emailAddress
+    customFields {
+      creditlimit
+      uselimit
+      availablelimit
+      customerDocument
+      code
+      blocked
+      birthdate
+      reseller
+      consumption
+      subscription
+      acceptterms
+      phone
+      company
+      avatar {
+        id
+        preview
+      }
+    }
+    addresses {
+      id
+      fullName
+      company
+      streetLine1
+      streetLine2
+      city
+      province
+      postalCode
+      defaultBillingAddress
+      defaultShippingAddress
+      country {
+        name
+        id
+      }
+      customFields {
+        number
+        neighborhood
+      }
+    }
+    orders {
+      items {
+        code
+        state
+        createdAt
+        subTotalWithTax
+        subTotal
+        shippingWithTax
+        payments {
+          state
+        }
+        shippingAddress {
+          streetLine1
+          streetLine2
+          city
+          province
+          postalCode
+          country
+          customFields {
+            number
+            neighborhood
+          }
+        }
+        lines {
+          quantity
+          productVariant {
+            sku
+            name
+          }
+          featuredAsset {
+            name
+            source
+          }
+        }
+      }
+    }
+    customFields {
+      avatar {
+        id
+        source
+      }
+    }
+  }
+}
+
+mutation UpdateUser($input: UpdateCustomerInput!) {
+  updateCustomer(input: $input) {
+    id
+    firstName
+    lastName
+    phoneNumber
+  }
+}
+
+mutation CreateCustomerAddress($input: CreateAddressInput!) {
+  createCustomerAddress(input: $input) {
+    __typename
+    id
+    streetLine1
+    streetLine2
+    fullName
+    company
+    city
+    province
+    postalCode
+    phoneNumber
+    customFields {
+      number
+      neighborhood
+      IBGE
+    }
+  }
+}
+
+mutation UpdateCustomerAddress($input: UpdateAddressInput!) {
+  updateCustomerAddress(input: $input) {
+    id
+    streetLine1
+    city
+    province
+    postalCode
+    country {
+      code
+    }
+    customFields {
+      number
+      neighborhood
+    }
+    defaultShippingAddress
+    defaultBillingAddress
+  }
+}
+
+query GetCreditAnalysisByCustomer {
+  getCreditAnalysisByCustomer {
+    id
+    status
+    createdAt
+  }
+}
+
+query GetIbgeCodeByCep($cep: String) {
+  getIbgeCodeByCep(cep: $cep) {
+    ... on IbgeCodeByCep {
+      __typename
+      city
+      neighborhood
+      state
+      street
+      ibgeCode
+    }
+    ... on BaseResult {
+      __typename
+      success
+      message
+    }
+  }
+}
+
+mutation SetCustomerAvatar($file: Upload!) {
+  setCustomerAvatar(file: $file) {
+    id
+    name
+    fileSize
+    source
+  }
+}

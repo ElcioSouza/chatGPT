@@ -1,0 +1,15 @@
+query Channels {
+  channels {
+    id
+    code
+    token
+  }
+}
+
+query ActiveChannel {
+  activeChannel {
+    id
+    code
+    token
+  }
+}

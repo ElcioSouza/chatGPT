@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-background;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer utilities {
+  .animation-delay-200 {
+    animation-delay: 0.2s;
+  }
+  .animation-delay-400 {
+    animation-delay: 0.4s;
+  }
+}
+
+.circle {
+  @apply w-3 h-3 my-12 mx-1 bg-secondary rounded-full;
+}
+
+.page
+.image-container {
+  width: 100%;
+}
+
+.image-container .image {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.image-container > div {
+  position: unset !important;
+}
+
+.account {
+  height: 100%;
+  min-width: 106px;
+  background-color: white;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 26% 100%, 16% 75%, 6% 41%);
+}
+
+.account-wrap {
+  margin-left: 30px;
+
+  filter: drop-shadow(-4px -10px 5px rgba(0, 0, 0, 0.25));
+}
+
+.hero .swiper-button-next:after,
+.hero .swiper-rtl,
+.hero .swiper-button-prev:after,
+.hero .swiper-button-prev:after,
+.hero .swiper-button-next:after {
+  content: "" !important;
+}
+.hero .swiper-button-prev,
+.hero .swiper-button-next {
+  margin-top: calc(0px - (20px / 2)) !important;
+}
+.hero .swiper-button-next {
+  margin-right: 20px !important;
+}
+.hero .swiper-button-prev {
+  margin-left: 20px !important;
+}
+.hero .swiper-pagination-bullet {
+  @apply !bg-white !opacity-100 !w-3 !h-3;
+}
+.hero .swiper-pagination-bullet-active {
+  @apply !bg-secondary;
+}
+
+.swiper-brands .swiper-wrapper {
+  padding-bottom: 40px;
+}
+.swiper-brands .swiper-pagination-bullet {
+  @apply !bg-gray-100 !opacity-100 !w-3 !h-3;
+}
+.swiper-brands .swiper-pagination-bullet-active {
+  @apply !bg-gray-400;
+}
+
+.cuttedTopLeft,
+.cuttedBottomLeft,
+.cuttedTopRight,
+.cuttedBottomRight {
+  height: 4px;
+  position: relative;
+}
+.cuttedTopLeft:before,
+.cuttedBottomLeft:before,
+.cuttedTopRight:before,
+.cuttedBottomRight:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  border-top: 4px solid white;
+  width: 0;
+}
+.cuttedTopLeft:before,
+.cuttedBottomLeft:before {
+  right: 0;
+}
+.cuttedTopRight:before,
+.cuttedBottomRight:before {
+  left: 0;
+}
+.cuttedTopLeft:before {
+  border-left: 4px solid rgb(19 21 138 / var(--tw-bg-opacity));
+}
+.cuttedBottomLeft:before {
+  border-left: 4px solid rgb(174 11 11 / var(--tw-bg-opacity));
+}
+.cuttedTopRight:before {
+  border-right: 4px solid rgb(19 21 138 / var(--tw-bg-opacity));
+}
+.cuttedBottomRight:before {
+  border-right: 4px solid rgb(174 11 11 / var(--tw-bg-opacity));
+}
+
+.gradient-underline {
+  position: relative;
+}
+.gradient-underline:before {
+  content: "";
+  position: absolute;
+  top: 100%;
+  width: 100%;
+  left: 0;
+  height: 4px;
+  border-radius: 2px;
+  line-height: 1rem;
+  margin-top: 8px;
+  background: linear-gradient(270deg, #b91615 0%, #303289 100%);
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+input[type="checkbox"] {
+  position: relative;
+  cursor: pointer;
+}
+input[type="checkbox"]:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+  border: 1px solid #13158a;
+}
+input[type="checkbox"]:checked:before {
+  content: "";
+  display: block;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 0;
+  left: 0;
+  background-color: #ffffff;
+}
+input[type="checkbox"]:checked:after {
+  content: "";
+  display: block;
+  width: 5px;
+  height: 10px;
+  border: solid #13158a;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+  position: absolute;
+  top: 3px;
+  left: 7px;
+}
+
+input[type="checkbox"]:focus-visible {
+  outline: none
+}
+
+.image-container {
+  width: 100%;
+}
+
+.image-container .image {
+  object-fit: contain;
+  width: 100% !important;
+  position: relative !important;
+  height: unset !important;
+}
+
+.image-container > div {
+  position: unset !important;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

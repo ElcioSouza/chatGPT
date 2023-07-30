@@ -1,0 +1,64 @@
+query Product($id: ID, $slug: String) {
+  product(id: $id, slug: $slug) {
+    id
+    languageCode
+    name
+    slug
+    description
+    collections {
+      id
+      name
+      slug
+    }
+    variants {
+      id
+      sku
+      price
+      currencyCode
+      priceWithTax
+      stockLevel
+    }
+    assets {
+      id
+      name
+      width
+      height
+      source
+    }
+  }
+}
+
+query Products($options: ProductListOptions) {
+  products(options: $options) {
+    items {
+      id
+      name
+      slug
+      description
+      featuredAsset {
+        width
+        height
+        source
+      }
+      variants {
+        price
+      }
+    }
+  }
+}
+
+mutation CreateProductReview($input: CreateProductReviewInput!) {
+  createProductReview(input: $input) {
+    id
+    rating
+  }
+}
+
+query GetProductReviews($id: ID!) {
+  getProductReviews(id: $id) {
+    id
+    productId
+    rating
+    customerId
+  }
+}

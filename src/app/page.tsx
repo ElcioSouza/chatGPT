@@ -1,29 +1,51 @@
 "use client";
+
 import Footer from '@/components/Footer';
 import ChatArea from '@/components/ChatArea';
 import Header from '@/components/Header';
 import { SideBar } from '@/components/Sidebar';
 import { Chat } from '@/types/chat';
 import { v4 as uuidv4} from 'uuid'
-import React from 'react'
+import React, { use } from 'react'
 import SidebarChatButton from '@/components/SidebarChatButton';
 import { openai } from '@/utils/openai';
-
+import { GraphQLClient } from 'graphql-request';
+import GqlClient from '../graphql/apollo-client';
+import { gql } from '@apollo/client';
+import ListLink from '@/app/components/ListLink';
+import { useRouter } from "next/navigation";
 export default function Page() {
-const [sidebarOpened,setSidebarOpened] = React.useState(false);
 
-/* const [chatActive, setChatActive]  = React.useState<Chat>({
-  id: '1',
-  title: 'Bla Blu',
-  messages: [
-    {id:'1', author: 'me', body: 'Opa, tudo bem?'},
-    {id:'2', author: 'ai', body: 'Tudo Ótimo, em que posso te ajudar?'}
-  ]
-}); */
+const [sidebarOpened,setSidebarOpened] = React.useState(false);
 const [chatList, setChatList]  = React.useState<Chat[]>([]);
 const [chatActiveId, setChatActiveId]  = React.useState<string>('');
 const [chatActive, setChatActive]  = React.useState<Chat>();
 const [AlLoading,SetAlLoading] = React.useState(false);
+const [chatData,setChatData] = React.useState('');
+const router = useRouter();
+/* const [dataLink, setDataLink] = React.useState([]);
+React.useEffect(() => {
+    const fetchLink = async () => {
+      const dados = await fetch("http://localhost:3000/cadLink");
+      const json = await dados.json();
+      //console.log(json.data.links[0].url)
+      setDataLink(json.data.links)
+    }
+    fetchLink();
+}, []);
+
+ console.log(dataLink) */
+
+
+/* React.useEffect(() => {
+    const fetchLink = async() => {
+      const dados = await fetch("./cadLink");
+      const json = dados.json();
+      return json;
+    }
+    console.log(fetchLink())
+}, [dataLink]) */
+
 
 React.useEffect(() => {
       // sempre que chatlist for atualizado
@@ -33,6 +55,7 @@ React.useEffect(() => {
 React.useEffect(() => {
   // sempre que chatlist for atualizado
   if(AlLoading) getAlResponse();
+  
 }, [AlLoading]);
 
 // fazer minha requição da minha api 
@@ -94,6 +117,7 @@ const handleSendMessage = (message: string) => {
       } else {
         // Atualizar chat existente.
         let chatListClone = [...chatList] // criei uma lista nova um clone
+        console.log("entrou",chatListClone)
         // indentificar o index se esta ativo, e armazenando na variavel chatIndex
         let chatIndex = chatListClone.findIndex(item => item.id === chatActiveId)
 
@@ -117,6 +141,35 @@ const handleNewChat = () => {
        setChatActiveId(''); 
        closeSidebar();
   }
+  function getCookieData(name:String) {
+    const cookieString = decodeURIComponent(document.cookie);
+    const cookieArray = cookieString.split(';');
+  
+    for (const cookie of cookieArray) {
+      const [cookieName, cookieValue] = cookie.split('=');
+      if (cookieName.trim() === name) {
+        return cookieValue.trim();
+      }
+    }
+  
+    return null; // Return null if the cookie is not found
+  }
+  function deleteCookie(cookieName:string) {
+    document.cookie =  `token=${cookieName}; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    router.push("/login")
+  }
+  const handlesignOutChat = () => {
+          // console.log(AlLoading)
+           // quando minha AlLoading estiver carregando minha resposta não pode signOutChat
+         //  if(AlLoading) return;
+          
+             const token = getCookieData("token")
+           
+           if(token) {
+            console.log(token)
+            deleteCookie(token);
+           }
+  }
   // troca de chats
   const handleSelectChat = (id: string) => {
       // quando minha AlLoading estiver carregando não vai fazer nada proximas linha
@@ -131,7 +184,6 @@ const handleNewChat = () => {
         setChatActiveId(item.id.toString())
       }
       closeSidebar()
-
   }
     const handleDeleteChat = (id: string) => {
           // preciso clonar
@@ -142,9 +194,7 @@ const handleNewChat = () => {
           chatListClone.splice(chatIndex, 1);
           setChatList(chatListClone);
           //vai zerar como era antes
-          setChatActiveId('')
-
-
+          setChatActiveId('');
     }
     const handleEditChat = (id: string, newTitle: string) => {
           // preciso clonar
@@ -167,12 +217,15 @@ const handleNewChat = () => {
 
   return (
     <main className="flex min-h-screen bg-gpt-gray">
+           {/* <ListLink />  */}
            {/* menu */}
           <SideBar
             open={sidebarOpened}
             close={closeSidebar}
             clear={handleClearConversatiosn}
-            newChat={handleNewChat}>
+            newChat={handleNewChat}
+            signOut={handlesignOutChat}
+            >
             {/* <div className="w-16 h-96 mb-2">...</div> */}
 
             {chatList.map((item,index)=> (
