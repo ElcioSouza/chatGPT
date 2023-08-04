@@ -6,9 +6,6 @@ scalar DateTime
 
 type Query {
     user:[User]
-}
-
-type Query {
     chat:[Chat]
 }
 
@@ -28,8 +25,7 @@ type User {
 type Chat {
   id: ID
   title: String
-  author: String
-  body: String
+  messages: String
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -37,6 +33,8 @@ type Chat {
 type Mutation {
   createUserRegister(name: String, tel: String, email: String, password: String, dataFile: Upload, createdAt: DateTime,updatedAt: DateTime): User
   userLogin(email: String,password: String): User
-  createChatRegister(title: String, author: String, body: String, createdAt: DateTime, updatedAt: DateTime): Chat
+  createChatRegister(title: String, messages: String, createdAt: DateTime, updatedAt: DateTime): Chat
+  updateChatRegister(title: String, messages: String, createdAt: DateTime, updatedAt: DateTime): Chat
+  deleteChatAll:String!
 }
 `;

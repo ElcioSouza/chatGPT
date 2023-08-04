@@ -8,7 +8,6 @@ interface Props {
 export default function ChatMessageInput({disabled, sendMessage}: Props) {
     const [text, setText]  = React.useState('');
     const textEl = React.useRef<HTMLTextAreaElement>(null);
-
    useEffect(() => {
       if(textEl.current) {
         textEl.current.style.height = "0px";

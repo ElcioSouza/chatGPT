@@ -23,6 +23,29 @@ const [chatActive, setChatActive]  = React.useState<Chat>();
 const [AlLoading,SetAlLoading] = React.useState(false);
 const [chatData,setChatData] = React.useState('');
 const router = useRouter();
+/* const [dataLink, setDataLink] = React.useState([]);
+React.useEffect(() => {
+    const fetchLink = async () => {
+      const dados = await fetch("http://localhost:3000/cadLink");
+      const json = await dados.json();
+      //console.log(json.data.links[0].url)
+      setDataLink(json.data.links)
+    }
+    fetchLink();
+}, []);
+
+ console.log(dataLink) */
+
+
+/* React.useEffect(() => {
+    const fetchLink = async() => {
+      const dados = await fetch("./cadLink");
+      const json = dados.json();
+      return json;
+    }
+    console.log(fetchLink())
+}, [dataLink]) */
+
 
 React.useEffect(() => {
       // sempre que chatlist for atualizado
@@ -32,6 +55,7 @@ React.useEffect(() => {
 React.useEffect(() => {
   // sempre que chatlist for atualizado
   if(AlLoading) getAlResponse();
+  
 }, [AlLoading]);
 
 // fazer minha requição da minha api 
@@ -46,7 +70,7 @@ const getAlResponse = async () => {
         // pegar as mensagem e traduzir ela para manda elas meu generation
         const translated = openai.translateMessages(chatListClone[chatIndex].messages);      
         const response = await openai.generate(translated);
-        
+       
         if(response) {
           chatListClone[chatIndex].messages.push({
             id: uuidv4(),
@@ -70,90 +94,17 @@ const handleClearConversatiosn = () => {
          setChatActiveId('');
          // limpa a conversa atual
          setChatList([]);
-         deletarChats();
 }
-// Função para buscar os chats do banco de dados e preencher a variável chatList
-const fetchChatsFromDatabase = async () => {
-  try {
-    const {data} = await GqlClient.query({
-      query: gql`
-         query {
-          chat {
-            id
-            title
-            messages
-          }
-         }
-      `
-    })
-    //const json = JSON.parse(data.createChatRegister.messages);
-    const updatedChat = data.chat.map((element:any) => {
-      //console.log(element);
-      return {
-        ...element,
-        messages: JSON.parse(element.messages),
-      };
-    });
-    
-   if(updatedChat)
-    setChatList(updatedChat); // Atualize a variável chatList com os chats obtidos
-  } catch (error) {
-    console.error('Erro ao buscar chats do banco de dados:', error);
-  }
-};
-
-// Chamada da função na inicialização da página para carregar os chats
-React.useEffect(() => {
-  fetchChatsFromDatabase();
-}, []);
-
-const chatInclude = (data:any,json:any) => {
- // console.log("data:",data.createChatRegister,"json",json)
- const dataChat = data.createChatRegister
-// console.log(typeof data)
-  if(!chatActiveId) {
-    // Criar novo chat
-    setChatList([{
-      id:  dataChat.id,
-      title: dataChat.title,
-      messages: [
-        {
-          id: dataChat.id,
-          author: json[0].author,
-          body: json[0].body
-        }
-      ]
-    }, ...chatList]);
-    setChatActiveId(dataChat.id);
-   
-  } else {
-
-    // Atualizar chat existente.
-    let chatListClone = [...chatList] // criei uma lista nova um clone
-
-    // indentificar o index se esta ativo, e armazenando na variavel chatIndex
-    let chatIndex = chatListClone.findIndex(item => item.id === chatActiveId)
-
-    // acessando a mensagem naquele chat especifico, e criando uma nova menssagem com push
-    chatListClone[chatIndex].messages.push({
-        id: dataChat.id,
-        author: json[0].author,
-        body: json[0].body
-    })
-     // atualizando toda minha lista de chat
-     setChatList(chatListClone);
-    }
-}
-
 // quando envia uma mensagem que vai criar novo chat
 const handleSendMessage = async (message: string) => {
   const { data,errors } = await GqlClient.mutate({
     mutation: gql`
-      mutation($title: String, $messages: String, $createdAt: DateTime, $updatedAt: DateTime) {
-        createChatRegister(title: $title, messages:$messages createdAt: $createdAt, updatedAt: $updatedAt) {
+      mutation($title: String, $author: String, $body: String, $createdAt: DateTime, $updatedAt: DateTime) {
+        createChatRegister(title: $title, author: $author, body: $body, createdAt: $createdAt, updatedAt: $updatedAt) {
           id
           title,
-          messages
+          author,
+          body,
           createdAt,
           updatedAt
         }
@@ -161,20 +112,45 @@ const handleSendMessage = async (message: string) => {
     `,
     variables: {
       title: message,
-      messages: JSON.stringify([
-        {
-          id: uuidv4(),
-          author: 'me',
-          body: message
-        }
-      ]) 
+      author: "me",
+      body: message
     }
   });
-    const json = JSON.parse(data.createChatRegister.messages)
-    chatInclude(data,json)
-    //console.log(chatList)
-    // quando nao tiver preenchido vai criar novo chat, ja com mensagem que esta mandando
-    SetAlLoading(true)
+  console.log(data,message);
+     // quando nao tiver preenchido vai criar novo chat, ja com mensagem que esta mandando
+     if(!chatActiveId) {
+        // Criar novo chat
+        let newChatId = uuidv4();
+        setChatList([{
+          id: newChatId,
+          title: message,
+          messages: [
+            {
+              id: uuidv4(),
+              author: 'me',
+              body: message
+            }
+          ]
+        }, ...chatList]);
+        setChatActiveId(newChatId);
+
+      } else {
+        // Atualizar chat existente.
+        let chatListClone = [...chatList] // criei uma lista nova um clone
+        console.log("entrou",chatListClone)
+        // indentificar o index se esta ativo, e armazenando na variavel chatIndex
+        let chatIndex = chatListClone.findIndex(item => item.id === chatActiveId)
+
+        // acessando a mensagem naquele chat especifico, e criando uma nova menssagem com push
+        chatListClone[chatIndex].messages.push({
+            id: uuidv4(),
+            author: 'me',
+            body: message
+        })
+        // atualizando toda minha lista de chat
+       setChatList(chatListClone);
+     }
+     SetAlLoading(true)
   }
 
 // sempre usuario clicar novo chat, vai desabilita chat ativo
@@ -210,7 +186,7 @@ const handleNewChat = () => {
              const token = getCookieData("token")
            
            if(token) {
-            //console.log(token)
+            console.log(token)
             deleteCookie(token);
            }
   }
@@ -229,45 +205,16 @@ const handleNewChat = () => {
       }
       closeSidebar()
   }
-
-  async function deletarChats() {
-   
-    const DELETE_CHAT_ALL_MUTATION = gql`
-      mutation {
-        deleteChatAll
-      }
-    `;
-  
-    try {
-      const { data } = await GqlClient.mutate({
-        mutation: DELETE_CHAT_ALL_MUTATION,
-      });
-  
-      //console.log(data);
-      // O resultado da mutação estará disponível na propriedade "data"
-      // Se a exclusão for bem-sucedida, data.deleteChatAll será true, caso contrário, será false.
-      if (data.deleteChatAll) {
-        console.log('Todos os chats foram apagados com sucesso.');
-      } else {
-        console.error('Não foi possível apagar os chats.');
-      }
-    } catch (error) {
-      //console.error('Ocorreu um erro na exclusão dos chats:', error.message);
-    }
-  }
-
-    const handleDeleteChat = async (id: string) => {
+    const handleDeleteChat = (id: string) => {
           // preciso clonar
           let chatListClone = [...chatList];
           // encontrei se esta ativo
           let chatIndex = chatListClone.findIndex(item => item.id === id);
           // removendo o ativo da lista
           chatListClone.splice(chatIndex, 1);
-    
           setChatList(chatListClone);
           //vai zerar como era antes
           setChatActiveId('');
-        
     }
     const handleEditChat = (id: string, newTitle: string) => {
           // preciso clonar
@@ -287,7 +234,7 @@ const handleNewChat = () => {
           }
         ])
   }
-//console.log("ola",chatList)
+
   return (
     <main className="flex min-h-screen bg-gpt-gray">
            {/* <ListLink />  */}

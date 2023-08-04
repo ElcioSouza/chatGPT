@@ -70,7 +70,6 @@ const handleClearConversatiosn = () => {
          setChatActiveId('');
          // limpa a conversa atual
          setChatList([]);
-         deletarChats();
 }
 // Função para buscar os chats do banco de dados e preencher a variável chatList
 const fetchChatsFromDatabase = async () => {
@@ -88,7 +87,7 @@ const fetchChatsFromDatabase = async () => {
     })
     //const json = JSON.parse(data.createChatRegister.messages);
     const updatedChat = data.chat.map((element:any) => {
-      //console.log(element);
+      console.log(element);
       return {
         ...element,
         messages: JSON.parse(element.messages),
@@ -107,10 +106,12 @@ React.useEffect(() => {
   fetchChatsFromDatabase();
 }, []);
 
+
+
 const chatInclude = (data:any,json:any) => {
  // console.log("data:",data.createChatRegister,"json",json)
  const dataChat = data.createChatRegister
-// console.log(typeof data)
+ console.log(typeof data)
   if(!chatActiveId) {
     // Criar novo chat
     setChatList([{
@@ -229,45 +230,16 @@ const handleNewChat = () => {
       }
       closeSidebar()
   }
-
-  async function deletarChats() {
-   
-    const DELETE_CHAT_ALL_MUTATION = gql`
-      mutation {
-        deleteChatAll
-      }
-    `;
-  
-    try {
-      const { data } = await GqlClient.mutate({
-        mutation: DELETE_CHAT_ALL_MUTATION,
-      });
-  
-      //console.log(data);
-      // O resultado da mutação estará disponível na propriedade "data"
-      // Se a exclusão for bem-sucedida, data.deleteChatAll será true, caso contrário, será false.
-      if (data.deleteChatAll) {
-        console.log('Todos os chats foram apagados com sucesso.');
-      } else {
-        console.error('Não foi possível apagar os chats.');
-      }
-    } catch (error) {
-      //console.error('Ocorreu um erro na exclusão dos chats:', error.message);
-    }
-  }
-
-    const handleDeleteChat = async (id: string) => {
+    const handleDeleteChat = (id: string) => {
           // preciso clonar
           let chatListClone = [...chatList];
           // encontrei se esta ativo
           let chatIndex = chatListClone.findIndex(item => item.id === id);
           // removendo o ativo da lista
           chatListClone.splice(chatIndex, 1);
-    
           setChatList(chatListClone);
           //vai zerar como era antes
           setChatActiveId('');
-        
     }
     const handleEditChat = (id: string, newTitle: string) => {
           // preciso clonar
@@ -287,7 +259,7 @@ const handleNewChat = () => {
           }
         ])
   }
-//console.log("ola",chatList)
+console.log("ola",chatList)
   return (
     <main className="flex min-h-screen bg-gpt-gray">
            {/* <ListLink />  */}

@@ -9,6 +9,7 @@ import { cookies } from "next/headers";
 export const resolvers: Resolvers = {
   Query: {
     user: async (parent, args, ctx) => await ctx.prisma.user.findMany(),
+    chat: async (parent, args, ctx) => await ctx.prisma.chat.findMany()
   },
   Mutation: {
     userLogin: async (parent, args, ctx) => {
@@ -79,21 +80,29 @@ export const resolvers: Resolvers = {
       }
     },
     createChatRegister:  async (parent, args, ctx) => {
-      const title =  "Minha Chat";
-      const author = "elcio";
-      const body =  "Minha Mensagem conversando ai";
-      const createdAt = "115/144//444//";
-      const updatedAt = "444/5558";
+      const {title,messages} = args;
+        // Lógica para preencher os campos createdAt e updatedAt
+        const createdAt = new Date().toISOString();
+        const updatedAt = new Date().toISOString();
+
       const cadastroChatUser = await ctx.prisma.chat.create({
         data: {
           title:title,
-          author: author,
-          body: body,
+          messages:messages,
           createdAt,
           updatedAt,
         },
       });
       return cadastroChatUser
+    }, 
+    deleteChatAll:  async (parent, args, ctx) => {
+      try {
+        const deleteChat = await ctx.prisma.chat.deleteMany();
+        return deleteChat;
+      } catch (error) {
+        console.error('Ocorreu um erro ao apagar os chats:', error);
+        throw new Error('Não foi possível apagar todos os chats.');
+      } 
     } 
   }
 };

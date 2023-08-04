@@ -25,8 +25,7 @@ model user {
 model chat {
   id Int @id @default(autoincrement())
   title String
-  author String
-  body String 
+  messages String @db.Text
   createdAt DateTime @default(now()) 
   updatedAt DateTime @updatedAt      
   @@map("chat")

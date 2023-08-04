@@ -84,7 +84,7 @@ export default function Login() {
     
       return null; // Return null if the cookie is not found
     }
-    
+
     // Example usage:
     const cookieName = 'token'; // Replace 'token' with the name of your cookie
     

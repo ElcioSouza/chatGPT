@@ -19,10 +19,9 @@ export type Scalars = {
 
 export type Chat = {
   __typename?: 'Chat';
-  author?: Maybe<Scalars['String']['output']>;
-  body?: Maybe<Scalars['String']['output']>;
   createdAt?: Maybe<Scalars['DateTime']['output']>;
   id?: Maybe<Scalars['ID']['output']>;
+  messages?: Maybe<Scalars['String']['output']>;
   title?: Maybe<Scalars['String']['output']>;
   updatedAt?: Maybe<Scalars['DateTime']['output']>;
 };
@@ -31,14 +30,15 @@ export type Mutation = {
   __typename?: 'Mutation';
   createChatRegister?: Maybe<Chat>;
   createUserRegister?: Maybe<User>;
+  deleteChatAll: Scalars['String']['output'];
+  updateChatRegister?: Maybe<Chat>;
   userLogin?: Maybe<User>;
 };
 
 
 export type MutationCreateChatRegisterArgs = {
-  author?: InputMaybe<Scalars['String']['input']>;
-  body?: InputMaybe<Scalars['String']['input']>;
   createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  messages?: InputMaybe<Scalars['String']['input']>;
   title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
@@ -51,6 +51,14 @@ export type MutationCreateUserRegisterArgs = {
   name?: InputMaybe<Scalars['String']['input']>;
   password?: InputMaybe<Scalars['String']['input']>;
   tel?: InputMaybe<Scalars['String']['input']>;
+  updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
+};
+
+
+export type MutationUpdateChatRegisterArgs = {
+  createdAt?: InputMaybe<Scalars['DateTime']['input']>;
+  messages?: InputMaybe<Scalars['String']['input']>;
+  title?: InputMaybe<Scalars['String']['input']>;
   updatedAt?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
@@ -176,10 +184,9 @@ export type ResolversParentTypes = {
 };
 
 export type ChatResolvers<ContextType = any, ParentType extends ResolversParentTypes['Chat'] = ResolversParentTypes['Chat']> = {
-  author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-  body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   createdAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  messages?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   title?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
   updatedAt?: Resolver<Maybe<ResolversTypes['DateTime']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
@@ -192,6 +199,8 @@ export interface DateTimeScalarConfig extends GraphQLScalarTypeConfig<ResolversT
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createChatRegister?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, Partial<MutationCreateChatRegisterArgs>>;
   createUserRegister?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<MutationCreateUserRegisterArgs>>;
+  deleteChatAll?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  updateChatRegister?: Resolver<Maybe<ResolversTypes['Chat']>, ParentType, ContextType, Partial<MutationUpdateChatRegisterArgs>>;
   userLogin?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, Partial<MutationUserLoginArgs>>;
 };
 
