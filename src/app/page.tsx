@@ -12,7 +12,6 @@ import { openai } from '@/utils/openai';
 import { GraphQLClient } from 'graphql-request';
 import GqlClient from '../graphql/apollo-client';
 import { gql } from '@apollo/client';
-import ListLink from '@/app/components/ListLink';
 import { useRouter } from "next/navigation";
 export default function Page() {
 

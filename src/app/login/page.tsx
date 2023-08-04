@@ -10,7 +10,6 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import RegisterModal from "@/components/Register/RegisterModal";
 import axios from "axios";
-import graphqlRequestClient from "@/lib/graphql.request";
 import moment from "moment";
 import { useForm } from "react-hook-form";
 /* import {MutationCreateCadUserArgs,CadInput,CadUser,CadUserResolvers,User,UserResolvers} from "../../../graphql/resolvers-type"; */
@@ -133,7 +132,7 @@ if(!data || !data.userLogin) {
   
   const isPasswordMatch = await bcrypt.compare(values.password,data.userLogin.password);
   if(!isPasswordMatch) {
-    setMessagerUser("Email ou senha mão confere okkkkk");
+    setMessagerUser("Email ou senha não confere");
     return;
   }
   if(data.userLogin && data.userLogin.email == values.email && isPasswordMatch) {

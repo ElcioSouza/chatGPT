@@ -9,7 +9,6 @@ import Input from "@/components/Input";
 import Link from "next/link";
 import RegisterModal from "@/components/Register/RegisterModal";
 import axios from "axios";
-import request  from "@/lib/graphql.request";
 import moment from "moment";
 import { useForm } from "react-hook-form";
 //import {User} from "../../../graphql/resolvers-type";

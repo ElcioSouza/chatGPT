@@ -1,10 +1,10 @@
 import { NextResponse, NextRequest } from 'next/server'
-import GqlClient from '../../graphql/apollo-client';
+import GqlClient from '../../../graphql/apollo-client';
 import { gql } from '@apollo/client';
 
 export async function GET(request: Request) {
     try {
-      const { data } = await GqlClient.mutate({
+   /*   const { data } = await GqlClient.mutate({
         mutation: gql`mutation {
           createUserRegister(
             name: ${name}
@@ -19,7 +19,7 @@ export async function GET(request: Request) {
           }
         } `});
 
-        /* mutation {
+         mutation {
   createUserRegister(
     name: "elcio"
     email: "elcio@gmail.com"
@@ -33,9 +33,9 @@ export async function GET(request: Request) {
   }
 } 
  
-      });*/
+      });
 
-      return NextResponse.json({ data })
+      return NextResponse.json({ data }) */
     } catch (error) {
       console.log(error) 
     }
