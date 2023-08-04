@@ -115,7 +115,7 @@ function setCookie(name: string, value: string, expirationTime: number) {
 
 
 if(!data || !data.userLogin) {
-  setMessagerUser("Email ou senha mão confere");
+  setMessagerUser("Email ou senha não confere");
   return;
 }
 
@@ -123,7 +123,7 @@ if(!data || !data.userLogin) {
     const token =  data.userLogin.token
     setCookie('token',token, expirationTime);
     
-    const res = await fetch('/cookies', {
+    const res = await fetch('api/cookies', {
       method: 'POST',
       body: JSON.stringify({
         data: data.userLogin
