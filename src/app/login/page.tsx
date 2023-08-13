@@ -8,7 +8,6 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
-import RegisterModal from "@/components/Register/RegisterModal";
 import axios from "axios";
 import moment from "moment";
 import { useForm } from "react-hook-form";
@@ -21,6 +20,7 @@ import jwt from 'jsonwebtoken';
 //import { cookies } from 'next/headers';
 import { useRouter } from "next/navigation";
 import bcrypt from "bcryptjs";
+import IconLoad from "@/components/icons/iconload";
 const companySchema = yup.object().shape({
   email: yup.string().required("Campo obrigatório"),
   password: yup.string().required("Campo obrigatório"),
@@ -211,11 +211,8 @@ if(!data || !data.userLogin) {
 
    {userCookies && (
 
-      <div className="flex flex-col p-10 md:p-0 items-center md:max-w-2xl md:w-[100%] justify-center bg-white max-w-4xl m-auto rounded">
-        <h1 className="font-semibold text-2xl  text-stone-950 my-5 sm:text-4xl text-primary">
-          Logado com Sucesso
-        </h1>
-     
+      <div className="flex flex-col p-10 md:p-0 items-center md:max-w-2xl md:w-[100%] justify-center max-w-4xl m-auto rounded">
+           <IconLoad width={80} height={80}  className="animate-blinkRotate" />
       </div>   
    )}
 

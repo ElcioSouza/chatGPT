@@ -7,7 +7,6 @@ import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { Button } from "@/components/Button";
 import Input from "@/components/Input";
 import Link from "next/link";
-import RegisterModal from "@/components/Register/RegisterModal";
 import axios from "axios";
 import moment from "moment";
 import { useForm } from "react-hook-form";

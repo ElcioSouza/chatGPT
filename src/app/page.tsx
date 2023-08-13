@@ -13,7 +13,8 @@ import { GraphQLClient } from 'graphql-request';
 import GqlClient from '../graphql/apollo-client';
 import { gql } from '@apollo/client';
 import { useRouter } from "next/navigation";
-export default function Page() {
+
+export default function Home() {
 
 const [sidebarOpened,setSidebarOpened] = React.useState(false);
 const [chatList, setChatList]  = React.useState<Chat[]>([]);
@@ -291,7 +292,7 @@ const handleNewChat = () => {
     <main className="flex min-h-screen bg-gpt-gray">
            {/* <ListLink />  */}
            {/* menu */}
-          <SideBar
+          < SideBar
             open={sidebarOpened}
             close={closeSidebar}
             clear={handleClearConversatiosn}

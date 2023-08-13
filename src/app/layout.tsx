@@ -3,8 +3,7 @@ import { Inter } from 'next/font/google'
 const inter = Inter({ subsets: ['latin'] })
 export const metadata = {
   title: {
-    default: 'ChatGPT',
-    template: '%s Globalsys'
+    default: 'ChatGPT'
   }
 }
 

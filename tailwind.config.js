@@ -24,6 +24,15 @@ module.exports = {
       },
       animation: {
         blink: 'blink 1s infinite'
+      },
+      keyframes: {
+        blinkRotate: {
+          '0%': { transform: 'rotate(0deg)', opacity: 1 },
+          '100%': { transform: 'rotate(360deg)', opacity: 1 }
+       }
+      },
+       animation: {
+        blinkRotate: 'blinkRotate 2s infinite linear'
       }
     },
   },
