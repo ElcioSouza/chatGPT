@@ -13,8 +13,7 @@ import { GraphQLClient } from 'graphql-request';
 import GqlClient from '../graphql/apollo-client';
 import { gql } from '@apollo/client';
 import { useRouter } from "next/navigation";
-
-export default function Home() {
+export default function Page() {
 
 const [sidebarOpened,setSidebarOpened] = React.useState(false);
 const [chatList, setChatList]  = React.useState<Chat[]>([]);
@@ -182,7 +181,7 @@ const handleNewChat = () => {
        // quando minha AlLoading estiver carregando minha resposta não pode criar chat novo
        if(AlLoading) return;
       //vai desabilita chat ativo
-       setChatActiveId(''); 
+      setChatActiveId(''); 
        closeSidebar();
   }
   function getCookieData(name:String) {
@@ -219,7 +218,7 @@ const handleNewChat = () => {
       // quando minha AlLoading estiver carregando não vai fazer nada proximas linha
       if(AlLoading) return;  
 
-      // vamos trocar de chat
+      // trocar de chat
 
       // vou pega index se chat esta ativo
       let item = chatList.find(item => item.id === id);

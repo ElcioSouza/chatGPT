@@ -56,7 +56,7 @@ export default function SidebarChatButton({ chatItem, active, click, del, edit }
               {!deleting && <IconChatLeft width={16} height={16} />}
               {deleting && <IconTrash width={16} height={16} />}
            </div>
-           {/* Texto */}
+           {/* Texto  quando estive editado mostra o input para alterar*/}
            <div className="flex-1 text-sm overflow-x-hidden">
             {editing && 
               <input 
@@ -65,6 +65,7 @@ export default function SidebarChatButton({ chatItem, active, click, del, edit }
               onChange={e => setTitleInput(e.target.value)}
               />
             }
+            {/* quando não estiver editado */}
             {!editing && 
                <div className="border border-transparent truncate">
                 {!deleting && chatItem.title}
@@ -72,6 +73,7 @@ export default function SidebarChatButton({ chatItem, active, click, del, edit }
                </div>
             }
            </div>
+           {/* mostra icone lapis e lixeira */}
            {active && !deleting && !editing && 
                 <div className="flex">
                      <div onClick={() => setEditing(true)} className="cursor-pointer mx-1
@@ -84,6 +86,7 @@ export default function SidebarChatButton({ chatItem, active, click, del, edit }
                      </div>
                 </div>
            }
+           {/* mostra icone v de check e o x cancelar  */}
            {(deleting || editing) &&
                <div className="flex">
                   <div onClick={handleConfirmButton} className="cursor-pointer mx-1
