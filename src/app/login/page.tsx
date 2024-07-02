@@ -25,7 +25,7 @@ const companySchema = yup.object().shape({
   email: yup.string().required("Campo obrigatório"),
   password: yup.string().required("Campo obrigatório"),
 });
-// Defina o tipo da variável userToken explicitamente
+
 type CookiesType = string | null;
 
 export default function Login() {
@@ -37,11 +37,10 @@ export default function Login() {
   
   const router = useRouter();
   const {
-    handleSubmit, //você pode chamar para lidar com a submissão do formulário. Você pode atribuí-la a um evento de submissão do formulário para executar a validação dos campos e acionar a função de callback quando o formulário for enviado.
-    register, //para registrar os campos do formulário. Você precisa atribuir o retorno dessa função aos elementos de entrada (input, select, textarea) do seu formulário para habilitar a validação e o rastreamento dos valores desses campos.
-    /*     watch: watchCompany, */ //  para rastrear o valor de um campo específico. Você pode usá-la para acessar e monitorar o valor atual de um campo específico do formulário.
-    control, //você pode usar para controlar um campo específico do formulário. Isso permite que você acesse e manipule o valor do campo, mesmo que ele esteja fora do escopo do register e não seja registrado explicitamente.
-    formState: { errors }, //É um objeto que contém os erros de validação dos campos do formulário. Cada campo com erro terá uma propriedade correspondente neste objeto, contendo uma mensagem de erro.
+    handleSubmit, 
+    register, 
+    control,
+    formState: { errors },
   } = useForm({ 
     resolver: yupResolver(companySchema),
   });
@@ -83,10 +82,7 @@ export default function Login() {
     
       return null; // Return null if the cookie is not found
     }
-
-    // Example usage:
-    const cookieName = 'token'; // Replace 'token' with the name of your cookie
-    
+    const cookieName = 'token';
     const cookieValue = getCookie(cookieName);
     
 
@@ -103,7 +99,7 @@ export default function Login() {
     
       return null; // Return null if the cookie is not found
     }
-    // Function to set cookies
+  
 function setCookie(name: string, value: string, expirationTime: number) {
   const date = new Date();
   date.setTime(date.getTime() + expirationTime * 1000); // Expiration time in milliseconds
@@ -150,13 +146,9 @@ if(!data || !data.userLogin) {
  
   useEffect(() => {
     setUserLodding(false);
-  //}
+  
   },[userCookies])
 
-  //console.log('Valor de userCookies:', userCookies);
-/* if(userLodding) {
-  return <div>Carregando</div>
-} */
   return (
     <div className="flex flex-col p-10 md:p-0 items-center justify-center h-full max-h-full">
    {!userCookies &&  (
