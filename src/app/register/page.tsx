@@ -54,11 +54,10 @@ export default function Register() {
   const router = useRouter();
 
   const {
-    handleSubmit, //você pode chamar para lidar com a submissão do formulário. Você pode atribuí-la a um evento de submissão do formulário para executar a validação dos campos e acionar a função de callback quando o formulário for enviado.
-    register, //para registrar os campos do formulário. Você precisa atribuir o retorno dessa função aos elementos de entrada (input, select, textarea) do seu formulário para habilitar a validação e o rastreamento dos valores desses campos.
-    /*     watch: watchCompany, */ //  para rastrear o valor de um campo específico. Você pode usá-la para acessar e monitorar o valor atual de um campo específico do formulário.
-    control, //você pode usar para controlar um campo específico do formulário. Isso permite que você acesse e manipule o valor do campo, mesmo que ele esteja fora do escopo do register e não seja registrado explicitamente.
-    formState: { errors }, //É um objeto que contém os erros de validação dos campos do formulário. Cada campo com erro terá uma propriedade correspondente neste objeto, contendo uma mensagem de erro.
+    handleSubmit, 
+    register, 
+    control, 
+    formState: { errors },
   } = useForm({ 
     resolver: yupResolver(companySchema),
     defaultValues: {
@@ -80,7 +79,6 @@ export default function Register() {
 
 const registerAccount = async (values: any) => {
   try {
- // console.log(values)
  const randomFile = getFileName(values);
 
  if(!randomFile) {
